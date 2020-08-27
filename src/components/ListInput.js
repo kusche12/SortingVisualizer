@@ -6,15 +6,39 @@ export default function ListInput({ userInput, setUserInput, setNumbers }) {
 
   // TODO: Continue error handling, check for edge cases
   const handleConfirm = () => {
-    // Check for errors in the input string
-    console.log(/^[0-9, ]+$/.test(userInput));
-    const isValid = /^[0-9, ]+$/.test(userInput);
-
+    // Check that string only consists of numbers, commas, spaces, and negative (-)
+    const isValid = /^[0-9, -]+$/.test(userInput);
     if (!isValid) {
-      setError('Make sure to format your list correctly');
-    } else {
-      setNumbers(userInput);
+      setError(
+        'Make sure your input only consists of number, commas, and spaces.'
+      );
+      return;
     }
+
+    // Check that string does not begin or end with a comma
+    if (
+      userInput.charAt(0) == ',' ||
+      userInput.charAt(userInput.length - 1) == ','
+    ) {
+      setError('Make sure to format your list correctly.');
+      return;
+    }
+
+    // Check that the numbers, commas, and spaces are formatted correctly
+    for (let i = 1; i < userInput.length; i++) {
+      let c1 = userInput.charAt(i);
+      let c0 = userInput.charAt(i - 1);
+      if (c0 == c1) {
+        if (c0 == ',' || c0 == ' ' || c0 == '-') {
+          setError('Make sure to format your list correctly.');
+          return;
+        }
+      }
+    }
+
+    // String is valid
+    setError('');
+    setNumbers(userInput);
   };
 
   return (

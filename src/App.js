@@ -36,9 +36,9 @@ export default App;
 
 /*
 TODO LIST:
--- Continue checking for bad input values
+-- Set up the randomize button to choose between 3 - 10 elements ranging from values 1 - 50
 -- Handle resizing of numbers when the bars have very different sizes. Poorly worded, but you get the idea.
--- Build out the controller component
+-- Change the speed of the algorithm due to the speedbar component
 -- Get the algorithm to run
 -- Visualize the algorithm
 

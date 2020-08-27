@@ -96,3 +96,59 @@ button:focus {
   padding-top: 4px;
   padding-bottom: 4px;
 }
+
+/* Controller */
+.controller {
+  background-color: #666666;
+  height: 75px;
+  display: flex;
+  flex-direction: row;
+  padding-left: 50px;
+  padding-right: 50px;
+  justify-content: space-between;
+}
+
+.speedbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.speedbar p {
+  color: white;
+}
+
+.speedContainer {
+  width: 100px;
+  height: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  background-color: #333333;
+}
+
+.speedController {
+  height: 10px;
+  width: 15px;
+  cursor: pointer;
+  background-color: #a1e9ff;
+}
+
+/* Progress bar */
+.progressbar {
+  margin: auto;
+}
+
+.progressbar button {
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+}
+
+.progressContainer {
+  width: 400px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
