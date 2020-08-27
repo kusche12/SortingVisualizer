@@ -8,7 +8,7 @@ export default function AlgoButton({ type, algorithm, changeAlgorithm }) {
         algorithm === type ? 'algobutton algobuttonFocus' : 'algobutton'
       }
     >
-      <button onClick={(e) => changeAlgorithm(e, type)}>{type}</button>
+      <button onClick={() => changeAlgorithm(type)}>{type}</button>
     </div>
   );
 }

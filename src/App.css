@@ -21,7 +21,7 @@ p {
   font-weight: bold;
 }
 
-.algobutton button:focus {
+button:focus {
   outline: none;
 }
 
@@ -35,14 +35,64 @@ p {
 
 /* Visualizer */
 .visualContainer {
-  background-color: lightgray;
-  height: 550px;
+  height: 500px;
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .bar {
   width: 50px;
-  height: 200px;
-  background-color: red;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #a1e9ff;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+}
+.bar h1 {
+  color: white;
+}
+
+/* List Input */
+.listinput {
+  height: 50px;
+  background-color: #666666;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.listinput input {
+  font-size: 24px;
+  color: lightgray;
+  border: transparent;
+}
+
+.listinput input:focus {
+  outline: none;
+}
+
+.textAndConfirm {
+  display: flex;
+  flex-direction: row;
+}
+
+.error {
+  color: red;
+  padding-left: 20px;
+}
+
+.listinput button {
+  color: lightgray;
+  background-color: #333333;
+  font-size: 20px;
+  cursor: pointer;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
