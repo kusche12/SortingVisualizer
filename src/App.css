@@ -1,0 +1,48 @@
+h1,
+p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Algorithm Picker */
+.sortingContainer {
+  background-color: #2e8fff;
+  display: flex;
+  flex-direction: row;
+}
+
+.algobutton button {
+  background-color: transparent;
+  border-color: transparent;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.algobutton button:focus {
+  outline: none;
+}
+
+.algobutton {
+  width: 150px;
+  text-align: center;
+}
+.algobuttonFocus {
+  background-color: #1272e0;
+}
+
+/* Visualizer */
+.visualContainer {
+  background-color: lightgray;
+  height: 550px;
+  display: flex;
+  flex-direction: row;
+}
+
+.bar {
+  width: 50px;
+  height: 200px;
+  background-color: red;
+}
