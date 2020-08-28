@@ -2,11 +2,11 @@ import React from 'react';
 import Progressbar from './Progressbar';
 import Speedbar from './Speedbar';
 
-export default function Controller() {
+export default function Controller({ runAlgorithm }) {
   return (
     <div className="controller">
       <Speedbar />
-      <Progressbar />
+      <Progressbar runAlgorithm={runAlgorithm} />
     </div>
   );
 }
