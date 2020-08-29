@@ -16,10 +16,12 @@ export default function Visualizer({ numbers, visual }) {
   // Render the bars when there is currently no animation occuring
   const renderBars = () =>
     numbers.map((value, index) => {
-      const height = getHeight(value);
-      return (
-        <Bar value={value} height={height} key={index} styleColor="#a1e9ff" />
-      );
+      if (value != null) {
+        const height = getHeight(value);
+        return (
+          <Bar value={value} height={height} key={index} styleColor="#a1e9ff" />
+        );
+      }
     });
 
   // Iterate over each element in the list
