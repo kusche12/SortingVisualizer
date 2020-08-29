@@ -9,19 +9,10 @@ import SelectionSort from './algos/selection';
 
 function App() {
   const [algorithm, setAlgorithm] = useState('SELECTION');
-  const [numbers, setNumbers] = useState([5, 3, 10, 2]); // Current list of numbers to be sorted
+  const [numbers, setNumbers] = useState([5, 3, 10, 2, null, null]); // List of numbers being displayed in algorithm
   const [userInput, setUserInput] = useState('5, 3, 10, 2');
-  //const [speed, setSpeed] = useState(500); // Speed that algorithm runs from 1000 (slow) to 100 (fast)
   const [processed, setProcessed] = useState(null); // Each step of the sorting algorithm in order
-  const [visual, setVisual] = useState(null); // Current step of sorting algorithm being visualized
-
-  // Once the user has chosen a sorting algorithm and list of numbers
-  // Visualize the algorithm
-  useEffect(() => {
-    if (processed !== null) {
-      visualizeAlgorithm();
-    }
-  }, [processed]);
+  const [current, setCurrent] = useState(0); // Current step within the algorithm
 
   // User chooses the sorting algorithm that they want to view
   const changeAlgorithm = (algorithmType) => {
@@ -37,28 +28,23 @@ function App() {
       random.push(num);
     }
     setUserInput(random.toString());
-    setNumbers(random);
+    setNumbers(random.push(null, null));
   };
 
   // Run the sorting algorithm on the list
+  // Save each step of the algorithm in the Processed state
   const runAlgorithm = () => {
-    const numbersToProcess = [...numbers];
+    const numbersToProcess = [...numbers.slice(0, numbers.length - 2)];
     setProcessed(SelectionSort(numbersToProcess));
   };
 
-  // Insert the next step of the algorithm every time
-  // that step has been visualized
-  // TODO: Right now it runs every 1 second, but it should only run once the visualizer is done processing the step
-  const visualizeAlgorithm = () => {
-    for (let i = 0; i < processed.length; i++) {
-      delayAlgorithmStep(i);
+  // Sets the list of numbers to the current step in the algorithm
+  // 0 <= current < processed.length
+  const getNextStep = () => {
+    if (current < processed.length) {
+      setNumbers(processed[current]);
+      current++;
     }
-  };
-
-  const delayAlgorithmStep = (i) => {
-    setTimeout(() => {
-      setVisual(processed[i]);
-    }, i * 100);
   };
 
   return (
@@ -67,7 +53,7 @@ function App() {
         algorithm={algorithm}
         changeAlgorithm={changeAlgorithm}
       />
-      <Visualizer numbers={numbers} visual={visual} />
+      <Visualizer numbers={numbers} getNextStep={getNextStep} />
       <ListInput
         userInput={userInput}
         setUserInput={setUserInput}

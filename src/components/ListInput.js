@@ -40,9 +40,14 @@ export default function ListInput({
       }
     }
 
-    // String is valid
+    // String is valid, set to the current list of numbers
     setError('');
-    setNumbers(userInput.split(','));
+    let inputToNums = userInput.split(',');
+    for (let i = 0; i < inputToNums.length; i++) {
+      let val = parseInt(inputToNums[i], 10);
+      inputToNums[i] = val;
+    }
+    setNumbers(inputToNums.concat([null, null]));
   };
 
   return (

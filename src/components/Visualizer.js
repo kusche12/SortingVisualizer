@@ -1,8 +1,9 @@
 import React from 'react';
 import Bar from './Bar';
 
-export default function Visualizer({ numbers, visual }) {
-  const largestNumber = Math.max(...numbers);
+export default function Visualizer({ numbers, getNextStep }) {
+  let currentStep = numbers.slice(0, numbers.length - 2);
+  const largestNumber = currentStep.reduce((a, b) => Math.max(a, b));
 
   // All heights have a minimum of 50px
   // Get proportions based off of largest element
@@ -13,46 +14,54 @@ export default function Visualizer({ numbers, visual }) {
     return height + value * multiplier;
   };
 
-  // Render the bars when there is currently no animation occuring
+  // Render the bars due to the current step in algorithm
   const renderBars = () =>
     numbers.map((value, index) => {
-      if (value != null) {
+      // Starting position
+      if (value !== null && currentStep[currentStep.length - 2] !== null) {
         const height = getHeight(value);
         return (
           <Bar value={value} height={height} key={index} styleColor="#a1e9ff" />
         );
+      } else if (value !== null) {
+        // Every other step in algorithm
+        const height = getHeight(value);
+        // Current and Minimum element
+        if (
+          index === currentStep[currentStep.length - 2] ||
+          index === currentStep[currentStep.length - 1]
+        ) {
+          return (
+            <Bar
+              value={value}
+              height={height}
+              key={index}
+              styleColor="#ffe959"
+            />
+          );
+          // Already sorted
+        } else if (index < currentStep[currentStep.length - 2]) {
+          return (
+            <Bar
+              value={value}
+              height={height}
+              key={index}
+              styleColor="#61ff59"
+            />
+          );
+          // Not yet sorted
+        } else {
+          return (
+            <Bar
+              value={value}
+              height={height}
+              key={index}
+              styleColor="#a1e9ff"
+            />
+          );
+        }
       }
     });
 
-  // Iterate over each element in the list
-  // Apply the correct styling for current element and minimum element
-  const renderAnimation = () => {
-    for (let i = 0; i < visual.length - 2; i++) {
-      //setTimeout(() => console.log(i), 10000);
-      const value = visual[i];
-      const height = getHeight(value);
-      if (i === visual[visual.length - 2] || i === visual[visual.length - 1]) {
-        // current and minimum element
-        return (
-          <Bar value={value} height={height} key={i} styleColor="#ffe959" />
-        );
-      } else if (i < visual[visual.length - 2]) {
-        // already sorted
-        return (
-          <Bar value={value} height={height} key={i} styleColor="#61ff59" />
-        );
-      } else {
-        // not sorted
-        return (
-          <Bar value={value} height={height} key={i} styleColor="#a1e9ff" />
-        );
-      }
-    }
-  };
-
-  return (
-    <div className="visualContainer">
-      {visual === null ? renderBars() : renderAnimation()}
-    </div>
-  );
+  return <div className="visualContainer">{renderBars()}</div>;
 }
