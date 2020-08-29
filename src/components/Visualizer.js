@@ -1,7 +1,7 @@
 import React from 'react';
 import Bar from './Bar';
 
-export default function Visualizer({ numbers, getNextStep }) {
+export default function Visualizer({ numbers }) {
   let currentStep = numbers.slice(0, numbers.length - 2);
   const largestNumber = currentStep.reduce((a, b) => Math.max(a, b));
 
@@ -26,7 +26,7 @@ export default function Visualizer({ numbers, getNextStep }) {
       } else if (value !== null) {
         // Every other step in algorithm
         const height = getHeight(value);
-        // Current and Minimum element
+        // current and minimum element
         if (
           index === currentStep[currentStep.length - 2] ||
           index === currentStep[currentStep.length - 1]
@@ -39,7 +39,7 @@ export default function Visualizer({ numbers, getNextStep }) {
               styleColor="#ffe959"
             />
           );
-          // Already sorted
+          // already sorted
         } else if (index < currentStep[currentStep.length - 2]) {
           return (
             <Bar
@@ -49,7 +49,7 @@ export default function Visualizer({ numbers, getNextStep }) {
               styleColor="#61ff59"
             />
           );
-          // Not yet sorted
+          // not yet sorted
         } else {
           return (
             <Bar

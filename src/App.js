@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import SortingAlgorithms from './components/SortingAlgorithms';
 import Visualizer from './components/Visualizer';
@@ -42,8 +42,15 @@ function App() {
   // 0 <= current < processed.length
   const getNextStep = () => {
     if (current < processed.length) {
-      setNumbers(processed[current]);
-      current++;
+      setNumbers(processed[current + 1]);
+      setCurrent(current + 1);
+    }
+  };
+
+  const getPrevStep = () => {
+    if (current > 0) {
+      setNumbers(processed[current - 1]);
+      setCurrent(current - 1);
     }
   };
 
@@ -53,14 +60,18 @@ function App() {
         algorithm={algorithm}
         changeAlgorithm={changeAlgorithm}
       />
-      <Visualizer numbers={numbers} getNextStep={getNextStep} />
+      <Visualizer numbers={numbers} />
       <ListInput
         userInput={userInput}
         setUserInput={setUserInput}
         setNumbers={setNumbers}
         randomize={randomize}
       />
-      <Controller runAlgorithm={runAlgorithm} />
+      <Controller
+        runAlgorithm={runAlgorithm}
+        getNextStep={getNextStep}
+        getPrevStep={getPrevStep}
+      />
     </div>
   );
 }
@@ -74,4 +85,7 @@ TODO LIST:
 -- Get the algorithm to run
 -- Visualize the algorithm
 
+WARNING: 
+-- You may need to add a third item in the numbers state to represent which number the algorithm is comparing
+---- Right now, it only tracks the current number and the smallest number.
 */
