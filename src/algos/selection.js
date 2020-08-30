@@ -11,8 +11,9 @@ const SelectionSort = (list) => {
         pos = j;
       }
       let curr = [...list];
-      curr.push(i);
-      curr.push(pos);
+      curr.push(i); // current index
+      curr.push(pos); // minimum index
+      curr.push(j); // compare index
       result.push(curr); // for result
     }
 
@@ -21,6 +22,9 @@ const SelectionSort = (list) => {
     list[pos] = temp;
     //result.push('swap'); TODO: Add this in to let the visualizer know when to do the swap animation
   }
+  let end = [...list];
+  end.push(null, null, null);
+  result.push(end);
   return result;
 };
 

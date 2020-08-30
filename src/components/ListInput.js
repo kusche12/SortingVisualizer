@@ -47,7 +47,7 @@ export default function ListInput({
       let val = parseInt(inputToNums[i], 10);
       inputToNums[i] = val;
     }
-    setNumbers(inputToNums.concat([null, null]));
+    setNumbers(inputToNums.concat([null, null, null]));
   };
 
   return (

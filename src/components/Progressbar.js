@@ -9,11 +9,11 @@ export default function Progressbar({
   getPrevStep,
 }) {
   // TODO: On clicking the play button, make the animation run from start to finish
-  // DO NOT try to work with the draggable component unti you get the animation to run on its own
+  // DO NOT try to work with the draggable component until you get the animation to run on its own
   // Begin the animation for the algorithm
   const runAlgoAnimation = () => {
     runAlgorithm();
-    getNextStep();
+    //getNextStep();
   };
 
   return (
