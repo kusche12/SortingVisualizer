@@ -1,26 +1,27 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faUndoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faUndoAlt, faPause } from '@fortawesome/free-solid-svg-icons';
 import Draggable from 'react-draggable';
 
 export default function Progressbar({
   runAlgorithm,
   getNextStep,
   getPrevStep,
+  isRunning,
 }) {
-  // TODO: On clicking the play button, make the animation run from start to finish
-  // DO NOT try to work with the draggable component until you get the animation to run on its own
   // Begin the animation for the algorithm
   const runAlgoAnimation = () => {
     runAlgorithm();
-    //getNextStep();
   };
 
   return (
     <div className="progressbar speedbar">
-      {/* TODO: MAKE THIS A TERNARY EXPRESSION, SUBSTITUTE PAUSE BUTTON WHILE RUNNING ALGO */}
       <button onClick={runAlgoAnimation}>
-        <FontAwesomeIcon icon={faPlay} color={'white'} />
+        {isRunning ? (
+          <FontAwesomeIcon icon={faPause} color={'white'} />
+        ) : (
+          <FontAwesomeIcon icon={faPlay} color={'white'} />
+        )}
       </button>
       <div className="progressContainer speedContainer">
         <Draggable
@@ -28,7 +29,7 @@ export default function Progressbar({
           bounds={'parent'}
           onStop={() => console.log('set new step in alagorithm')}
         >
-          <div className="progressControler speedController"></div>
+          <div className="speedController progressController"></div>
         </Draggable>
       </div>
       <button>

@@ -11,15 +11,17 @@ function App() {
   const [algorithm, setAlgorithm] = useState('SELECTION');
   // List of numbers being displayed in algorithm [LIST, current, minimum, compare]
   const [numbers, setNumbers] = useState([10, 9, 5, 3, 2, null, null, null]);
+  const [isRunning, setIsRunning] = useState(false);
   const [userInput, setUserInput] = useState('1, 2, 5, 3, 10, 2, 12');
   const [processed, setProcessed] = useState(null); // Each step of the sorting algorithm in order
   const [current, setCurrent] = useState(0); // Current step within the algorithm
+  const [speed, setSpeed] = useState(500);
 
   useEffect(() => {
-    if (processed) {
-      getNextStep();
+    if (isRunning) {
+      visualizeAlgorithm();
     }
-  }, [processed]);
+  }, [isRunning]);
 
   // User chooses the sorting algorithm that they want to view
   const changeAlgorithm = (algorithmType) => {
@@ -43,15 +45,33 @@ function App() {
   const runAlgorithm = () => {
     const numbersToProcess = [...numbers.slice(0, numbers.length - 3)];
     setProcessed(SelectionSort(numbersToProcess));
+    setIsRunning(true);
+  };
+
+  // Run each step of the sorting algorithm to create an animated visual
+  const visualizeAlgorithm = () => {
+    let i = current;
+    while (i < processed.length) {
+      visualizeNextStep(i);
+      i++;
+    }
+    setTimeout(() => {
+      setIsRunning(false);
+    }, speed * i);
+  };
+  // Helper function to allow for different speeds of algorithm
+  // TODO: Change the speed due to user input
+  const visualizeNextStep = (i) => {
+    setTimeout(() => {
+      getNextStep(i);
+    }, speed * i);
   };
 
   // Sets the list of numbers to the current step in the algorithm
   // 0 <= current < processed.length
-  const getNextStep = () => {
-    if (current < processed.length) {
-      setNumbers(processed[current]);
-      setCurrent(current + 1);
-    }
+  const getNextStep = (i) => {
+    setNumbers(processed[i]);
+    setCurrent(i + 1);
   };
 
   const getPrevStep = () => {
@@ -78,6 +98,9 @@ function App() {
         runAlgorithm={runAlgorithm}
         getNextStep={getNextStep}
         getPrevStep={getPrevStep}
+        isRunning={isRunning}
+        setIsRunning={setIsRunning}
+        setSpeed={setSpeed}
       />
     </div>
   );
@@ -87,12 +110,13 @@ export default App;
 
 /*
 TODO LIST:
+-- Allow for pausing the algorithm
 -- Handle resizing of numbers when the bars have very different sizes. Poorly worded, but you get the idea.
--- Change the speed of the algorithm due to the speedbar component
--- Get the algorithm to run
--- Visualize the algorithm
+-- Get the algorithm to run 
+*/
 
-WARNING: 
--- You may need to add a third item in the numbers state to represent which number the algorithm is comparing
----- Right now, it only tracks the current number and the smallest number.
+/*
+BUG LIST:
+-- isRunning seems to return false values. When running a second algorithm, it takes a long time to start
+---- and then starts halfway through the process
 */
