@@ -8,15 +8,23 @@ export default function Controller({
   getPrevStep,
   isRunning,
   setSpeed,
+  current,
+  processed,
+  restartAlgorithm,
+  stopAlgorithm,
 }) {
   return (
     <div className="controller">
       <Speedbar setSpeed={setSpeed} />
       <Progressbar
         runAlgorithm={runAlgorithm}
+        restartAlgorithm={restartAlgorithm}
         getNextStep={getNextStep}
         getPrevStep={getPrevStep}
         isRunning={isRunning}
+        current={current}
+        processed={processed}
+        stopAlgorithm={stopAlgorithm}
       />
     </div>
   );

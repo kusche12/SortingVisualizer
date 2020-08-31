@@ -10,9 +10,9 @@ import SelectionSort from './algos/selection';
 function App() {
   const [algorithm, setAlgorithm] = useState('SELECTION');
   // List of numbers being displayed in algorithm [LIST, current, minimum, compare]
-  const [numbers, setNumbers] = useState([10, 9, 5, 3, 2, null, null, null]);
+  const [numbers, setNumbers] = useState([10, 12, 5, 10, 1, null, null, null]);
   const [isRunning, setIsRunning] = useState(false);
-  const [userInput, setUserInput] = useState('1, 2, 5, 3, 10, 2, 12');
+  const [userInput, setUserInput] = useState('10, 12, 5, 10, 1');
   const [processed, setProcessed] = useState(null); // Each step of the sorting algorithm in order
   const [current, setCurrent] = useState(0); // Current step within the algorithm
   const [speed, setSpeed] = useState(500);
@@ -50,7 +50,7 @@ function App() {
 
   // Run each step of the sorting algorithm to create an animated visual
   const visualizeAlgorithm = () => {
-    let i = current;
+    let i = 0;
     while (i < processed.length) {
       visualizeNextStep(i);
       i++;
@@ -59,12 +59,27 @@ function App() {
       setIsRunning(false);
     }, speed * i);
   };
-  // Helper function to allow for different speeds of algorithm
-  // TODO: Change the speed due to user input
+  // Helper function to run the algorithm at the given speed
   const visualizeNextStep = (i) => {
     setTimeout(() => {
       getNextStep(i);
     }, speed * i);
+  };
+
+  // Start the algorithm over from the beginning.
+  // This can be called while it is already running or after it is over
+  // This cannot be called if the algorithm was never ran in the first place
+  const restartAlgorithm = () => {
+    this.stopAlgorithm();
+    // TODO: Start algorithm from the top
+  };
+
+  // Pause the algorithm at the given step.
+  // User can either continue running again from this step or change step.
+  const stopAlgorithm = () => {
+    setIsRunning(false);
+    console.log('stopAlgorithm: ' + isRunning);
+    // TODO: Stop the algorithm at the current step
   };
 
   // Sets the list of numbers to the current step in the algorithm
@@ -96,11 +111,14 @@ function App() {
       />
       <Controller
         runAlgorithm={runAlgorithm}
+        restartAlgorithm={restartAlgorithm}
         getNextStep={getNextStep}
         getPrevStep={getPrevStep}
         isRunning={isRunning}
-        setIsRunning={setIsRunning}
         setSpeed={setSpeed}
+        current={current}
+        processed={processed}
+        stopAlgorithm={stopAlgorithm}
       />
     </div>
   );
@@ -111,12 +129,6 @@ export default App;
 /*
 TODO LIST:
 -- Allow for pausing the algorithm
+-- Allow for restarting the algorithm
 -- Handle resizing of numbers when the bars have very different sizes. Poorly worded, but you get the idea.
--- Get the algorithm to run 
-*/
-
-/*
-BUG LIST:
--- isRunning seems to return false values. When running a second algorithm, it takes a long time to start
----- and then starts halfway through the process
 */

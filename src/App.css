@@ -138,6 +138,9 @@ button:focus {
 
 /* Progress bar */
 .progressbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin: auto;
 }
 
@@ -152,3 +155,22 @@ button:focus {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.progressController {
+  position: absolute;
+}
+
+.prevContainer {
+  background-color: white;
+  height: 10px;
+  position: absolute;
+}
+
+/*
+COLOR PALETTE
+BLUE LIGHT #a1e9ff
+YELLOW #ffad42
+RED #ff6969
+GREEN #61ff59 
+
+*/

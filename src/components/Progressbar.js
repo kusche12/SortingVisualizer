@@ -5,34 +5,56 @@ import Draggable from 'react-draggable';
 
 export default function Progressbar({
   runAlgorithm,
+  restartAlgorithm,
+  stopAlgorithm,
   getNextStep,
   getPrevStep,
   isRunning,
+  current,
+  processed,
 }) {
-  // Begin the animation for the algorithm
-  const runAlgoAnimation = () => {
-    runAlgorithm();
+  // Set the position of the progress bar in relation to the step in the algorithm
+  let posX = 0;
+  if (processed !== null) {
+    posX = (current / processed.length) * 400;
+  }
+  // Keep inside progress bar bounds
+  posX = posX >= 400 ? 400 - 15 : posX;
+
+  // Show play while not running, show pause while running
+  const pausePlayButton = () => {
+    if (isRunning) {
+      return (
+        <button onClick={() => stopAlgorithm()}>
+          <FontAwesomeIcon icon={faPause} color={'white'} />
+        </button>
+      );
+    } else {
+      return (
+        <button onClick={() => runAlgorithm()}>
+          <FontAwesomeIcon icon={faPlay} color={'white'} />
+        </button>
+      );
+    }
   };
 
   return (
-    <div className="progressbar speedbar">
-      <button onClick={runAlgoAnimation}>
-        {isRunning ? (
-          <FontAwesomeIcon icon={faPause} color={'white'} />
-        ) : (
-          <FontAwesomeIcon icon={faPlay} color={'white'} />
-        )}
-      </button>
+    <div className="progressbar">
+      {pausePlayButton()}
       <div className="progressContainer speedContainer">
+        <div className="prevContainer" style={{ width: posX }}></div>
         <Draggable
           axis="x"
           bounds={'parent'}
-          onStop={() => console.log('set new step in alagorithm')}
+          onStop={() => console.log('set new step in algorithm')}
         >
-          <div className="speedController progressController"></div>
+          <div
+            style={{ left: posX }}
+            className="speedController progressController"
+          ></div>
         </Draggable>
       </div>
-      <button>
+      <button onClick={() => restartAlgorithm()}>
         <FontAwesomeIcon icon={faUndoAlt} color={'white'} />
       </button>
     </div>
